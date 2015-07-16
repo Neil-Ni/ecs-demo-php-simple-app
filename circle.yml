@@ -1,0 +1,25 @@
+general:
+  artifacts:
+    - docker
+
+machine:
+  services:
+    - docker
+
+test:
+  override:
+    - echo 'No tests :('
+
+deployment:
+  aws:
+    branch: master
+    codedeploy:
+      console-sample-app-neil-7-cd:
+        application_root: /
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: console-sample-app-neil-7-cd-bucket
+            key_pattern: console-sample-app-neil-7-cd-bucket-{BRANCH}-{SHORT_COMMIT}
+        region: us-east-1
+        deployment_group: console-sample-app-neil-7-cd-gp
